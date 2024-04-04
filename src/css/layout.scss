@@ -1,0 +1,15 @@
+@import './variables/sizes.scss';
+
+@each $direction, $prop in $directions {
+  @each $sizeName, $size in $sizes {
+    .hd-p#{$direction}-#{$sizeName} {
+      @if type-of($prop) == list {
+        @each $property in $prop {
+          padding-#{$property}: $size;
+        }
+      } @else {
+        padding-#{$prop}: $size;
+      }
+    }
+  }
+}

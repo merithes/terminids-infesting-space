@@ -1,0 +1,40 @@
+/**
+*** SET CUSTOM COLORS
+**/
+
+$primary: #fff100;
+
+/**
+*** SET GENERIC COLORS
+**/
+
+$white: #fff;
+$dark: #111;
+$grey: #eee;
+$grey-1: #ddd;
+$grey-2: #ccc;
+$grey-3: #bbb;
+$grey-4: #aaa;
+$grey-5: #999;
+$grey-6: #888;
+$grey-7: #777;
+$grey-8: #666;
+
+$colorsList: (
+  primary: $primary,
+  white: $white,
+  dark: $dark,
+  grey: $grey,
+  grey-1: $grey-1,
+  grey-2: $grey-2,
+  grey-3: $grey-3,
+  grey-4: $grey-4,
+  grey-5: $grey-5,
+);
+
+/**
+*** SET APP COLORS
+**/
+
+$defaultTextColor: $white;
+$defaultBgColor: $dark;

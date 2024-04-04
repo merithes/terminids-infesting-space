@@ -1,0 +1,24 @@
+@import './variables.scss';
+@import './layout.scss';
+@import './colors.scss';
+@import './fonts.scss';
+
+:root {
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+
+    #app {
+      background-color: $defaultBgColor;
+      color: $defaultTextColor;
+      height: 100vh;
+      font-family: 'Swiss 721', sans-serif;
+    }
+  }
+}
+
+* {
+  color: inherit;
+  font-size: inherit;
+}

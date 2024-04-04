@@ -1,0 +1,32 @@
+$space-base: 1rem;
+
+$sizes: (
+  xxs: $space-base * 0.25,
+  xs: $space-base * 0.5,
+  sm: $space-base * 0.75,
+  md: $space-base,
+  lg: $space-base * 1.25,
+  xl: $space-base * 1.5,
+  xxl: $space-base * 3,
+);
+
+$directions: (
+  l: 'left',
+  r: 'right',
+  t: 'top',
+  b: 'bottom',
+  x: (
+    'right',
+    'left',
+  ),
+  y: (
+    'top',
+    'bottom',
+  ),
+  a: (
+    'top',
+    'bottom',
+    'right',
+    'left',
+  ),
+);
