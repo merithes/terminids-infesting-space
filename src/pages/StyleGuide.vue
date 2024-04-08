@@ -5,7 +5,7 @@
       <h1>Typography</h1>
     </div>
     <div class="col-6">
-      <h1>Buttons</h1>
+      <h2>Buttons</h2>
       <separator
         width="300px"
         color="primary"
@@ -24,7 +24,7 @@
           min-width="300px"
         />
       </div>
-      <h3 class="hd-mt-xxl hd-mb-sm">striped style</h3>
+      <h3 class="hd-mt-xxl hd-mb-sm">Striped style</h3>
       <separator width="100px" />
       <div class="flex-row gap">
         <hd-button
@@ -51,17 +51,29 @@
           disabled
         />
       </div>
+      <h2 class="hd-mt-xxl">Skeleton</h2>
+      <separator
+        width="300px"
+        color="primary"
+      />
+      <div class="flex-row gap items-start">
+        <skeleton width="100px" />
+        <skeleton
+          type="circle"
+          width="100px"
+        />
+      </div>
     </div>
   </div>
   <div class="hd-pa-md"></div>
 </template>
 
 <script lang="ts">
-  import { HdButton, Separator } from '@/components/atomics'
+  import { HdButton, Separator, Skeleton } from '@/components/atomics'
   import { defineComponent } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
-    components: { HdButton, Separator },
+    components: { HdButton, Separator, Skeleton },
   })
 </script>
