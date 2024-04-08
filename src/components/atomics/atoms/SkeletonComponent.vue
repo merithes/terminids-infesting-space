@@ -29,7 +29,7 @@
     cursor: wait;
     position: relative;
     overflow: hidden;
-    background: #fff1;
+    background: #fff2;
     &::before {
       content: '\00a0';
     }
