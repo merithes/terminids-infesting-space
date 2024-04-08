@@ -24,30 +24,30 @@
           min-width="300px"
         />
       </div>
-      <h3 class="hd-mt-xxl hd-mb-sm">Stripped style</h3>
+      <h3 class="hd-mt-xxl hd-mb-sm">striped style</h3>
       <separator width="100px" />
       <div class="flex-row gap">
         <hd-button
           label="Regular"
           :background="false"
-          stripped
+          striped
         />
         <hd-button
           label="Positive"
           :background="false"
-          stripped
+          striped
           color="positive"
         />
         <hd-button
           label="Locked"
           :background="false"
-          stripped
+          striped
           color="negative"
         />
         <hd-button
           label="disabled"
           :background="false"
-          stripped
+          striped
           disabled
         />
       </div>

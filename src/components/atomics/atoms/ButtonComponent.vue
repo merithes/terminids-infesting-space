@@ -19,7 +19,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
 
-  type ButtonStyle = 'default' | 'stripped'
+  type ButtonStyle = 'default' | 'striped'
 
   export default defineComponent({
     name: 'ButtonComponent',
@@ -27,7 +27,7 @@
       label: String,
       color: String,
       outline: String,
-      stripped: Boolean,
+      striped: Boolean,
       default: Boolean,
       background: {
         type: String as () => boolean | string,
@@ -39,19 +39,19 @@
     },
     computed: {
       buttonStyle(): ButtonStyle {
-        if (this.stripped) return 'stripped'
+        if (this.striped) return 'striped'
         if (this.default) return 'default'
         return 'default'
       },
       textColor() {
         if (this.color) return this.color
-        if (this.buttonStyle === 'stripped') return 'primary'
+        if (this.buttonStyle === 'striped') return 'primary'
         return 'white'
       },
       outlineColor(): string {
         if (this.outline) return this.outline
-        if (this.stripped && this.color) return this.color
-        if (this.stripped && !this.color) return 'primary'
+        if (this.striped && this.color) return this.color
+        if (this.striped && !this.color) return 'primary'
         return 'grey-2'
       },
     },
@@ -192,7 +192,7 @@
       }
     }
 
-    &.hd-button-stripped {
+    &.hd-button-striped {
       $padding-x-size: map-get($sizes, md);
       $padding-y-size: map-get($sizes, sm);
 
@@ -210,7 +210,7 @@
         border-color 0.4s ease;
 
       /**
-      *** STRIPPED BACKGROUND
+      *** striped BACKGROUND
       *** As ::before because it needs to be semi-transparent
       **/
       &::before {
@@ -226,7 +226,7 @@
         $mainColor: var(--outline);
         $secondaryColor: transparent;
         $halfWidth: calc($width / 2);
-        background: center center / 9px 9px
+        background: top left / 9px 9px
           linear-gradient(
             45deg,
             $mainColor #{$halfWidth},
@@ -237,9 +237,6 @@
           );
       }
 
-      &:active {
-      }
-
       &[disabled] {
         cursor: not-allowed;
         color: #{$grey-2};
@@ -248,12 +245,23 @@
       }
 
       &:not([disabled]) {
+        &:active::before {
+          animation: stripesActive 0.5s linear 0.15s infinite;
+        }
         &:focus-visible {
           outline: 2px dashed $primary;
           outline-offset: map-get($sizes, xxs);
           transition: unset;
         }
       }
+    }
+  }
+  @keyframes stripesActive {
+    from {
+      background-position: top left;
+    }
+    to {
+      background-position: top 9px left;
     }
   }
 </style>
