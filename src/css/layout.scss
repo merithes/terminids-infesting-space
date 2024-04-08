@@ -11,5 +11,130 @@
         padding-#{$prop}: $size;
       }
     }
+    .hd-m#{$direction}-#{$sizeName} {
+      @if type-of($prop) == list {
+        @each $property in $prop {
+          margin-#{$property}: $size;
+        }
+      } @else {
+        margin-#{$prop}: $size;
+      }
+    }
   }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  --column-gap: #{map-get($sizes, md)};
+  --row-gap: #{map-get($sizes, md)};
+
+  grid-column-gap: MIN(calc(100% / 11), var(--column-gap));
+  grid-row-gap: var(--row-gap);
+
+  @for $col-size from 1 through 12 {
+    .col-#{$col-size} {
+      grid-column: span $col-size;
+    }
+  }
+
+  @each $sizeName, $sizeValue in $sizes {
+    .row-gap-#{$sizeName} {
+      --row-gap: #{$sizeValue};
+    }
+    .col-gap-#{$sizeName} {
+      --column-gap: #{$sizeValue};
+    }
+  }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  column-gap: #{map-get($sizes, md)};
+  row-gap: #{map-get($sizes, md)};
+  justify-content: start;
+
+  @each $sizeName, $sizeValue in $sizes {
+    .row-gap-#{$sizeName} {
+      row-gap: #{$sizeValue};
+    }
+    .col-gap-#{$sizeName} {
+      column-gap: #{$sizeValue};
+    }
+  }
+}
+
+.justify-start {
+  justify-content: start;
+}
+.justify-end {
+  justify-content: end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-left {
+  justify-content: left;
+}
+.justify-right {
+  justify-content: right;
+}
+.justify-normal {
+  justify-content: normal;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-evenly {
+  justify-content: space-evenly;
+}
+.justify-stretch {
+  justify-content: stretch;
+}
+.justify-safe {
+  justify-content: safe;
+}
+.justify-unsafe {
+  justify-content: unsafe;
+}
+
+.align-start {
+  align-items: start;
+}
+.align-end {
+  align-items: end;
+}
+.align-center {
+  align-items: center;
+}
+.align-left {
+  align-items: left;
+}
+.align-right {
+  align-items: right;
+}
+.align-normal {
+  align-items: normal;
+}
+.align-between {
+  align-items: space-between;
+}
+.align-around {
+  align-items: space-around;
+}
+.align-evenly {
+  align-items: space-evenly;
+}
+.align-stretch {
+  align-items: stretch;
+}
+.align-safe {
+  align-items: safe;
+}
+.align-unsafe {
+  align-items: unsafe;
 }
