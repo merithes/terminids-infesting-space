@@ -1,20 +1,20 @@
 <template>
-  <button
+  <component
+    :is="to ? 'RouterLink' : 'button'"
     class="tab-item"
-    :class="{ 'tab-selected': tabSelected }"
+    :class="{ 'tab-selected': active }"
     :data-num="nth"
-    @click="innerValue = value"
+    :to="to"
   >
     <div class="tab-item-inner">
       <slot>{{ label }}</slot>
     </div>
     <div class="tab-decoration"></div>
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, ref, watch } from 'vue'
-  import isEqual from 'lodash.isequal'
+  import { defineComponent, ref, watch } from 'vue'
 
   export default defineComponent({
     name: 'TabItem',
@@ -24,9 +24,9 @@
         type: Number,
         default: 1,
       },
+      to: String,
       active: Boolean,
       modelValue: null as unknown as () => unknown,
-      value: null as unknown as () => unknown,
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
@@ -38,11 +38,8 @@
       )
       watch(innerValue, newVal => emit('update:modelValue', newVal))
 
-      const tabSelected = computed(() => isEqual(props.value, innerValue.value))
-
       return {
         innerValue,
-        tabSelected,
       }
     },
   })

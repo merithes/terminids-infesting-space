@@ -1,7 +1,10 @@
 <template>
-  <div class="tab-list">
+  <div
+    class="tab-list"
+    :style="{ '--tab-list-length': options?.length ?? 0 }"
+  >
     <template
-      v-for="({ label, value, disabled }, index) of options"
+      v-for="({ label, value, disabled, to }, index) of options"
       :key="index"
     >
       <div class="tab-item-wrapper-col">
@@ -11,6 +14,8 @@
           :value="value"
           :disabled="disabled"
           :nth="index + 1"
+          :active="to ? isCurrentPath(to) : isEqual(value, innerValue)"
+          @click="() => (to ? null : (innerValue = value))"
           class="full-width"
         />
       </div>
@@ -21,11 +26,13 @@
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue'
   import { TabItem } from '@/components/atomics'
+  import isEqual from 'lodash.isequal'
 
   interface TabOption {
-    value: unknown
+    value?: unknown
     label: string
     disabled?: boolean | undefined
+    to?: string
   }
 
   export default defineComponent({
@@ -47,7 +54,12 @@
       )
       watch(innerValue, newVal => emit('update:modelValue', newVal))
 
-      return { innerValue }
+      return { innerValue, isEqual }
+    },
+    methods: {
+      isCurrentPath: function (path: string) {
+        return this.$route.path === path
+      },
     },
   })
 </script>
@@ -55,7 +67,7 @@
 <style scoped lang="scss">
   .tab-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(var(--tab-list-length), 1fr);
     grid-auto-rows: min-content;
     align-content: start;
 
