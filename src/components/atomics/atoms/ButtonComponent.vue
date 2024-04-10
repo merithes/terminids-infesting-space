@@ -30,7 +30,7 @@
       striped: Boolean,
       default: Boolean,
       background: {
-        type: String as () => boolean | string,
+        type: null as unknown as () => boolean | string,
         default: 'white',
       },
       width: String,
@@ -61,10 +61,6 @@
 <style lang="scss">
   .hd-button {
     position: relative;
-    cursor: pointer;
-    border-radius: 0;
-    background-color: #0000;
-    border: unset;
 
     font-family: 'FS Sinclair';
     text-transform: uppercase;

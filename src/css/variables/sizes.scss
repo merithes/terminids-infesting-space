@@ -1,4 +1,5 @@
 $space-base: 1rem;
+$rel-space-base: 1em;
 
 $sizes: (
   xxs: $space-base * 0.25,
@@ -8,6 +9,14 @@ $sizes: (
   lg: $space-base * 1.25,
   xl: $space-base * 1.5,
   xxl: $space-base * 3,
+
+  rxxs: $rel-space-base * 0.25,
+  rxs: $rel-space-base * 0.5,
+  rsm: $rel-space-base * 0.75,
+  rmd: $rel-space-base,
+  rlg: $rel-space-base * 1.25,
+  rxl: $rel-space-base * 1.5,
+  rxxl: $rel-space-base * 3,
 );
 
 $directions: (
