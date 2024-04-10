@@ -152,6 +152,18 @@
           $mainColor calc(100% - #{$halfWidth})
         );
     }
+
+    &:hover {
+      color: $active-color;
+
+      &::before {
+        color: $active-color;
+      }
+      &::after {
+        border-color: $active-color;
+      }
+    }
+
     &.tab-selected {
       .tab-decoration {
         height: 0.9rem;
