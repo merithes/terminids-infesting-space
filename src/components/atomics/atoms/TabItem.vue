@@ -51,6 +51,7 @@
 <style lang="scss">
   .tab-item {
     font-size: 1.5rem;
+    min-width: 180px;
 
     $inactive-color: $grey-8;
     $inactive-color-label: $grey-4;
