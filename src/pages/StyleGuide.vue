@@ -63,17 +63,40 @@
           width="100px"
         />
       </div>
+      <h2 class="hd-mt-xxl">Tabs</h2>
+      <separator
+        width="300px"
+        color="primary"
+      />
+      <div class="flex-row gap items-start">
+        <tab-list
+          label="stratagems"
+          v-model="tab2"
+          :options="[
+            { value: 'destroyer', label: 'destroyer' },
+            { value: 'stratagem', label: 'stratagem' },
+            { value: 'shipModule', label: 'Ship module' },
+          ]"
+          value="stratagems"
+        />
+      </div>
     </div>
   </div>
   <div class="hd-pa-md"></div>
 </template>
 
 <script lang="ts">
-  import { HdButton, Separator, Skeleton } from '@/components/atomics'
-  import { defineComponent } from 'vue'
+  import { HdButton, Separator, Skeleton, TabList } from '@/components/atomics'
+  import { defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
-    components: { HdButton, Separator, Skeleton },
+    components: { HdButton, Separator, Skeleton, TabList },
+    setup() {
+      return {
+        tab1: ref('destroyer'),
+        tab2: ref('destroyer'),
+      }
+    },
   })
 </script>
