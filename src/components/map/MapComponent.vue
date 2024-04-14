@@ -152,6 +152,7 @@
         }
         &[aria-checked='true'] {
           stroke: $primary;
+          stroke-width: 5px;
         }
       }
     }
