@@ -218,19 +218,8 @@
         left: 0;
         opacity: 0.3;
         z-index: 0;
-        $width: 1px;
-        $mainColor: var(--outline);
-        $secondaryColor: transparent;
-        $halfWidth: calc($width / 2);
-        background: top left / 9px 9px
-          linear-gradient(
-            45deg,
-            $mainColor #{$halfWidth},
-            $secondaryColor #{$halfWidth + 1px} calc(50% - #{$halfWidth + 1px}),
-            $mainColor calc(50% - #{$halfWidth}) calc(50% + #{$halfWidth}),
-            $secondaryColor calc(50% + #{$halfWidth + 1px}) calc(100% - #{$halfWidth + 1px}),
-            $mainColor calc(100% - #{$halfWidth})
-          );
+
+        @include borderDash(1px, 9px, var(--outline), transparent);
       }
 
       &[disabled] {

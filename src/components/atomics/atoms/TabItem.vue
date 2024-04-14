@@ -147,21 +147,7 @@
           -5% -5%
         );
 
-        $width: 3px;
-        $size: 12px;
-        $mainColor: $inactive-color;
-        $secondaryColor: transparent;
-        $halfWidth: calc($width / 2);
-
-        background: top left $width / #{$size} #{$size}
-          linear-gradient(
-            -45deg,
-            $mainColor #{$halfWidth},
-            $secondaryColor #{$halfWidth + 1px} calc(50% - #{$halfWidth + 1px}),
-            $mainColor calc(50% - #{$halfWidth}) calc(50% + #{$halfWidth}),
-            $secondaryColor calc(50% + #{$halfWidth + 1px}) calc(100% - #{$halfWidth + 1px}),
-            $mainColor calc(100% - #{$halfWidth})
-          );
+        @include borderDash(3px, 12px, $inactive-color, transparent, -45deg);
       }
 
       &:hover {
