@@ -10,14 +10,13 @@
     margin: 0;
     width: 100vw;
     height: 100vh;
-    font-family: 'FS Sinclair', sans-serif;
     font-weight: normal;
     background-color: $defaultBgColor;
 
     #app {
       color: $defaultTextColor;
       height: 100vh;
-      font-family: 'Swiss 721', sans-serif;
+      font-family: 'Montserrat', sans-serif;
     }
   }
   ::selection {

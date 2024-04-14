@@ -13,6 +13,65 @@
           width="300px"
           color="primary"
         />
+        <h3 class="hd-mt-xxl hd-mb-sm">Fonts</h3>
+        <separator
+          width="100px"
+          color="primary"
+        />
+        <div>
+          <div
+            class="font-sinclair"
+            style="font-size: 2rem"
+          >
+            FS Sinclair
+            <p class="text-body1">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br />
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br />
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco<br />
+              laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+          <div
+            class="font-swiss"
+            style="font-size: 2rem"
+          >
+            Swiss 721
+            <p class="text-body1">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br />
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br />
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco<br />
+              laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
+        <h3 class="hd-mt-xxl hd-mb-sm">Text bodies</h3>
+        <separator
+          width="100px"
+          color="primary"
+        />
+        <div class="flex-column gap-md">
+          <div class="text-h1">h1 .text-h1 Headline 1</div>
+          <div class="text-h2">h2 .text-h2 Headline 2</div>
+          <div class="text-h3">h3 .text-h3 Headline 2</div>
+          <div class="text-subtitle1">.text-subtitle1 Subtitle 1</div>
+          <div class="text-subtitle2">.text-subtitle2 Subtitle 2</div>
+          <div class="text-body1">.text-body1 Body 1</div>
+          <div class="text-body2">.text-body2 Body 2</div>
+          <div class="text-caption">.text-caption Caption text</div>
+        </div>
+        <h3 class="hd-mt-xxl hd-mb-sm">Font weights</h3>
+        <separator
+          width="100px"
+          color="primary"
+        />
+        <div class="flex-column gap-md">
+          <div class="text-weight-thin">.text-weight-thin Lorem ipsum sit amet</div>
+          <div class="text-weight-light">.text-weight-light Lorem ipsum sit amet</div>
+          <div class="text-weight-regular">.text-weight-regular Lorem ipsum sit amet</div>
+          <div class="text-weight-medium">.text-weight-medium Lorem ipsum sit amet</div>
+          <div class="text-weight-bold">.text-weight-bold Lorem ipsum sit amet</div>
+          <div class="text-weight-bolder">.text-weight-bolder Lorem ipsum sit amet</div>
+        </div>
       </div>
       <div class="col-6">
         <h2>Buttons</h2>

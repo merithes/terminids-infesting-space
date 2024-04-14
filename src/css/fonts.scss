@@ -8,10 +8,19 @@
   src: url('src/assets/fonts/swiss721.otf');
 }
 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('src/assets/fonts/montserrat.ttf');
+}
+
 .font-sinclair {
   font-family: 'FS Sinclair', monospace;
 }
 
 .font-swiss {
   font-family: 'Swiss 721', sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
 }

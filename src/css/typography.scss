@@ -1,7 +1,15 @@
+// Inspired by the Quasar Framework
+
 /**
-*** DEFAULT TAGS
+*** TITLES
 **/
 
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6,
 h1,
 h2,
 h3,
@@ -11,17 +19,124 @@ h6 {
   margin: 0;
   font-family: 'FS Sinclair', monospace;
 }
-
+.text-h1,
 h1 {
   font-size: 3rem;
   font-weight: bold;
 }
-
+.text-h2,
 h2 {
   font-size: 2.5rem;
   font-weight: bold;
 }
-
+.text-h3,
 h3 {
   font-size: 2rem;
+}
+
+/**
+*** SUBTITLES
+**/
+
+.text-subtitle1 {
+  font-weight: 400;
+  font-size: 1.2rem;
+  font-family: 'FS Sinclair', monospace;
+}
+.text-subtitle2 {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'FS Sinclair', monospace;
+}
+
+/**
+*** BODY
+**/
+
+.text-body1 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+.text-body2 {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+.text-caption {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+/**
+*** WEIGHTS
+**/
+
+.text-weight-thin {
+  font-weight: 100;
+}
+.text-weight-light {
+  font-weight: 300;
+}
+.text-weight-regular {
+  font-weight: 400;
+}
+.text-weight-medium {
+  font-weight: 500;
+}
+.text-weight-bold,
+.text-bold {
+  font-weight: 700;
+}
+.text-weight-bolder {
+  font-weight: 900;
+}
+
+/**
+*** POSITIONING
+**/
+
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+
+/**
+*** TRANSFORMING
+**/
+
+.text-italic {
+  font-style: italic;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-lowercase {
+  text-transform: lowercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+.text-smallcaps {
+  font-variant: small-caps;
+}
+
+/**
+*** DECORATION
+**/
+
+.text-strike {
+  text-decoration: line-through;
+}
+.text-underline {
+  text-decoration: underline;
+}
+.text-no-deco {
+  text-decoration: none;
 }
