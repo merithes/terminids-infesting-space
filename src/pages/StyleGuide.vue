@@ -159,18 +159,36 @@
             </div>
           </border-decorator>
         </div>
+        <h2 class="hd-mt-xxl">Card</h2>
+        <separator width="100px" />
+        <div class="flex-row gap items-start">
+          <description-card label="Stats">
+            <div class="text-uppercase font-sinclair">
+              <div>Call-in time</div>
+              <div>Uses</div>
+              <div>Cooldown time</div>
+            </div>
+          </description-card>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { BorderDecorator, HdButton, Separator, Skeleton, TabList } from '@/components/atomics'
+  import {
+    BorderDecorator,
+    HdButton,
+    Separator,
+    Skeleton,
+    TabList,
+    DescriptionCard,
+  } from '@/components/atomics'
   import { defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
-    components: { HdButton, Separator, Skeleton, TabList, BorderDecorator },
+    components: { HdButton, Separator, Skeleton, TabList, BorderDecorator, DescriptionCard },
     setup() {
       return {
         tab1: ref('destroyer'),
