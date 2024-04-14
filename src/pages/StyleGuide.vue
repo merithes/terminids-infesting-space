@@ -1,9 +1,18 @@
 <template>
   <div>
-    <h1>Buttons</h1>
+    <h1 class="fs-sinclair">Styling elements</h1>
+    <separator
+      width="60%"
+      color="primary"
+      dashed
+    />
     <div class="row">
       <div class="col-6">
-        <h1>Typography</h1>
+        <h2>Typography</h2>
+        <separator
+          width="300px"
+          color="primary"
+        />
       </div>
       <div class="col-6">
         <h2>Buttons</h2>
@@ -53,10 +62,7 @@
           />
         </div>
         <h2 class="hd-mt-xxl">Skeleton</h2>
-        <separator
-          width="300px"
-          color="primary"
-        />
+        <separator width="100px" />
         <div class="flex-row gap items-start">
           <skeleton width="100px" />
           <skeleton
@@ -65,10 +71,7 @@
           />
         </div>
         <h2 class="hd-mt-xxl">Tabs</h2>
-        <separator
-          width="300px"
-          color="primary"
-        />
+        <separator width="100px" />
         <div class="flex-row gap items-start">
           <tab-list
             label="stratagems"
@@ -81,18 +84,34 @@
             value="stratagems"
           />
         </div>
+        <h2 class="hd-mt-xxl">Decorators</h2>
+        <separator width="100px" />
+        <div
+          class="flex-row gap items-start"
+          style="height: 300px"
+        >
+          <border-decorator />
+          <border-decorator flipped />
+
+          <border-decorator height="auto">
+            <div class="hd-pa-md">
+              with some content <br />
+              and some more
+            </div>
+          </border-decorator>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { HdButton, Separator, Skeleton, TabList } from '@/components/atomics'
+  import { BorderDecorator, HdButton, Separator, Skeleton, TabList } from '@/components/atomics'
   import { defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
-    components: { HdButton, Separator, Skeleton, TabList },
+    components: { HdButton, Separator, Skeleton, TabList, BorderDecorator },
     setup() {
       return {
         tab1: ref('destroyer'),
