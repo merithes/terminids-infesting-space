@@ -15,6 +15,10 @@ const router = createRouter({
           path: 'styleguide',
           component: () => import('@/pages/StyleGuide.vue'),
         },
+        {
+          path: 'map',
+          component: () => import('@/pages/MapPage.vue'),
+        },
       ],
     },
     {
