@@ -1,9 +1,15 @@
 <template>
-  <div id="mainLayout">
-    <div>
+  <div
+    id="mainLayout"
+    class="flex-column"
+  >
+    <div class="hd-pa-md">
       <hd-nav-bar />
     </div>
-    <div>
+    <div
+      id="MainLayoutPage"
+      class="hd-pa-md"
+    >
       <router-view />
     </div>
   </div>
@@ -16,3 +22,13 @@
     components: { HdNavBar },
   })
 </script>
+<style>
+  #mainLayout {
+    height: 100vh;
+    #MainLayoutPage {
+      flex-grow: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+</style>
