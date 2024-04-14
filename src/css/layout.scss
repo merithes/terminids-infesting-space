@@ -48,12 +48,12 @@
   }
 }
 
+.flex-column,
 .flex-row {
-  display: flex;
-  flex-direction: row;
   column-gap: #{map-get($sizes, md)};
   row-gap: #{map-get($sizes, md)};
   justify-content: start;
+  display: flex;
 
   @each $sizeName, $sizeValue in $sizes {
     .row-gap-#{$sizeName} {
@@ -63,6 +63,21 @@
       column-gap: #{$sizeValue};
     }
   }
+}
+
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-nogrow {
+  flex-grow: 0;
 }
 
 .justify-start {

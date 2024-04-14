@@ -2,6 +2,7 @@ $space-base: 1rem;
 $rel-space-base: 1em;
 
 $sizes: (
+  none: 0,
   xxs: $space-base * 0.25,
   xs: $space-base * 0.5,
   sm: $space-base * 0.75,
