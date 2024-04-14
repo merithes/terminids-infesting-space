@@ -7,18 +7,17 @@
       v-for="({ label, value, disabled, to }, index) of options"
       :key="index"
     >
-      <div class="tab-item-wrapper-col">
-        <tab-item
-          v-model="innerValue"
-          :label="label"
-          :value="value"
-          :disabled="disabled"
-          :nth="index + 1"
-          :active="to ? isCurrentPath(to) : isEqual(value, innerValue)"
-          @click="() => (to ? null : (innerValue = value))"
-          class="full-width"
-        />
-      </div>
+      <tab-item
+        v-model="innerValue"
+        :label="label"
+        :value="value"
+        :disabled="disabled"
+        :nth="index + 1"
+        :active="to ? isCurrentPath(to) : isEqual(value, innerValue)"
+        @click="() => (to ? null : (innerValue = value))"
+        :to="to"
+        class="full-width"
+      />
     </template>
   </div>
 </template>
