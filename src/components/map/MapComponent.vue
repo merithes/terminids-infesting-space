@@ -1,19 +1,23 @@
 <template>
-  <div class="map flex-row justify-center full-height">
+  <div
+    class="map flex-row justify-center full-height"
+    @wheel.prevent="handleZoom"
+  >
     <radio-svg-map
-      :map="hdMap"
       ref="svgMap"
       v-model="selectedSector"
-      :location-attributes="{ 'vector-effect': 'non-scaling-stroke' }"
+      :map="hdMap"
       toggle
-      :class="{ 'sector-selected': selectedSector }"
+      :location-attributes="{ 'vector-effect': 'non-scaling-stroke' }"
       @vue:mounted="handleMounted"
+      class="full-width"
+      :class="{ 'sector-selected': selectedSector }"
     />
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, nextTick, reactive, ref, watch } from 'vue'
+  import { defineComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
   import hdMap from '@/assets/map'
   import { RadioSvgMap } from '@/components/map/svgMap'
 
@@ -42,17 +46,17 @@
           posY: 50,
         }
 
-      watch(selectedSector, (newVal): void => {
-        if (!newVal) {
+      const focusSector = (sector: string): void => {
+        if (!sector) {
           Object.assign(transform, {
-            scale: undefined,
-            x: undefined,
-            y: undefined,
+            scale: 1,
+            x: -50,
+            y: -50,
           })
           return
         }
         const sectorPath = svgMap.value?.svgMap?.containerGroup?.querySelector(
-            `#${newVal}`
+            `#${sector}`
           ) as SVGGraphicsElement,
           boundaries = sectorPath?.getBBox(),
           scale = Math.min(
@@ -64,25 +68,42 @@
             y: -boundaries.y - boundaries.height / 2,
           }
         Object.assign(transform, { scale }, transformAfterScale)
-      })
+      }
+
+      watch(selectedSector, focusSector)
+      onMounted(() => nextTick().then(() => focusSector(selectedSector.value)))
 
       watch(
         transform,
         (newVal): void => {
-          const isFilled = !Object.keys(transform).some(
-              e => typeof newVal[e as string as keyof SvgTransformMatrix] === 'undefined'
-            ),
-            pathGroup = svgMap.value?.svgMap?.wrapperGroup
+          const pathGroup = svgMap.value?.svgMap?.wrapperGroup
 
           if (!pathGroup) return
-          if (!isFilled) pathGroup.style.transform = 'translate(-50%, -50%)'
 
-          if (isFilled) {
-            pathGroup.style.transform = `scale(${newVal.scale}) translate(${newVal.x}%, ${newVal.y}%)`
-          }
+          pathGroup.style.transform = `scale(${newVal.scale}) translate(${newVal.x}%, ${newVal.y}%)`
         },
         { deep: true }
       )
+
+      const handleZoom = (event: WheelEvent) => {
+        if (!event.target) return
+
+        const { deltaY: direction, clientX: pointerX, clientY: pointerY } = event,
+          { innerWidth: width, innerHeight: height } = window,
+          newTransform = {
+            x: transform.x ?? -50,
+            y: transform.y ?? -50,
+            scale: transform.scale ?? 1,
+          }
+
+        if (direction > 0) newTransform.scale /= 1.1
+        if (direction < 0) newTransform.scale *= 1.1
+
+        newTransform.x += ((pointerX - width / 2) / width) * (direction > 0 ? 1 : -1)
+        newTransform.y += ((pointerY - height / 2) / height) * (direction > 0 ? 1 : -1)
+
+        Object.assign(transform, newTransform)
+      }
 
       const handleMounted = () => {
         nextTick().then(() => {
@@ -98,6 +119,7 @@
         selectedSector,
         transform,
         handleMounted,
+        handleZoom,
       }
     },
   })
@@ -122,7 +144,7 @@
       path {
         stroke: $grey-5;
         stroke-width: 3px;
-        fill: #0000;
+        fill: #0005;
         cursor: pointer;
         &:focus-visible,
         &:focus {

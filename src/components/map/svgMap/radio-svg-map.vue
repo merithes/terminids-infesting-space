@@ -105,8 +105,11 @@
        * @param {Node} location - DOM node of location to select
        */
       selectLocation(location: HTMLElement & Node, doToggle = true, doFocus = false) {
-        // Select only if new location
-        console.log(location.id)
+        if (
+          (this.svgMap?.wrapperGroup && this.svgMap?.wrapperGroup === location) ||
+          (this.svgMap?.containerGroup && this.svgMap?.containerGroup === location)
+        )
+          return
         if (!location.id.length) {
           this.value = undefined
         }

@@ -1,5 +1,4 @@
-<script lang="ts"></script>
-
 <template>
   <div>examplePage</div>
 </template>
+<script lang="ts"></script>
