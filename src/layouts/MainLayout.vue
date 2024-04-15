@@ -2,8 +2,7 @@
   <div
     id="mainLayout"
     class="flex-column"
-    @mousemove="mouseMove"
-    :style="parallax"
+    :style="{ '--py': `${parallax.y}px`, '--px': `${parallax.x}px` }"
   >
     <div class="hd-pa-md">
       <hd-nav-bar />
@@ -11,6 +10,7 @@
     <div
       id="MainLayoutPage"
       class="hd-pa-md"
+      @scroll="scroll"
     >
       <router-view v-slot="{ Component, route }">
         <!-- Use a custom transition or fallback to `fade` -->
@@ -35,26 +35,15 @@
     name: 'MainLayout',
     components: { HdNavBar },
     setup() {
-      const parallax = reactive({ '--px': '0px', '--py': '0px' }),
-        firstMove = { x: 0, y: 0 },
-        boundaries = {
-          x: window.innerWidth,
-          y: window.innerHeight,
-        }
+      const parallax = reactive({ x: 0, y: 0, prevX: 0, prevY: 0 })
 
-      const mouseMove = ({ clientX: x, clientY: y }: MouseEvent) => {
-        if (firstMove.x === 0 && firstMove.y === 0) {
-          Object.assign(firstMove, { x, y })
-          return
-        }
-
-        Object.assign(parallax, {
-          '--px': `${((x - firstMove.x) / boundaries.x) * 5}px`,
-          '--py': `${((y - firstMove.y) / boundaries.y) * 5}px`,
-        })
+      const scroll = (event: UIEvent) => {
+        const newPos = (event?.target as HTMLElement | undefined)?.scrollTop ?? 0
+        parallax.y += newPos > parallax.prevY ? -0.2 : 0.2
+        parallax.prevY = newPos
       }
 
-      return { mouseMove, parallax }
+      return { scroll, parallax }
     },
   })
 </script>
