@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import type { Planet } from '@/interfaces'
 
 interface ListManager {
@@ -18,7 +18,8 @@ export const usePlanetsStore = defineStore('counter', () => {
       currentFetch: undefined,
       loading: false,
       list: listManagerStorage?.list ?? [],
-    })
+    }),
+    cacheDuration = 5 * 60 * 1000
 
   const fetchList = () => {
     if (!listManager.currentFetch) {
@@ -29,24 +30,31 @@ export const usePlanetsStore = defineStore('counter', () => {
           return response.json()
         })
         .then((planets: Planet[]) => {
-          listManager.list = planets
+          Object.assign(listManager, {
+            list: planets,
+            lastFetchTs: Date.now(),
+          })
         })
         .finally(() => {
           Object.assign(listManager, {
             currentFetch: undefined,
             loading: false,
           })
-          listManager.currentFetch = undefined
-          listManager.loading = false
         })
     }
+
+    watch(listManager, newVal => {
+      localStorage.setItem('planets.listManager', JSON.stringify(newVal))
+    })
 
     return listManager.currentFetch
   }
 
   return {
     list: computed(() => listManager.list),
-    needsFetching: computed(() => !listManager.list.length && !listManager.loading),
+    needsFetching: computed(
+      () => listManager.lastFetchTs + cacheDuration < Date.now() && !listManager.loading
+    ),
     loading: computed(() => listManager.loading),
     fetch: fetchList,
   }
