@@ -143,6 +143,16 @@
             value="stratagems"
           />
         </div>
+        <h2 class="hd-mt-xxl">Dialog</h2>
+        <separator width="100px" />
+        <div class="flex-row gap items-start">
+          <hd-button
+            @click="
+              createDialog({ title: 'Title example', message: 'Lorem Ipsum you know the stuff' })
+            "
+            label="dialog"
+          />
+        </div>
         <h2 class="hd-mt-xxl">Decorators</h2>
         <separator width="100px" />
         <div
@@ -184,15 +194,18 @@
     TabList,
     DescriptionCard,
   } from '@/components/atomics'
+  import { useDialogs } from '@/composable'
   import { defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
     components: { HdButton, Separator, Skeleton, TabList, BorderDecorator, DescriptionCard },
     setup() {
+      const { createDialog } = useDialogs()
       return {
         tab1: ref('destroyer'),
         tab2: ref('destroyer'),
+        createDialog,
       }
     },
   })

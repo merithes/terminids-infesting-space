@@ -11,6 +11,7 @@
     >
       <div
         class="dialog-backdrop"
+        @click="() => (currentDialog?.noBackdropDismiss ? null : currentDialog?.dismiss())"
         tabindex="0"
       ></div>
       <div class="dialog-wrapper">
@@ -28,7 +29,7 @@
         >
           <div
             v-if="currentDialog.title"
-            class="dialog-title-wrapper"
+            class="dialog-title-wrapper text-uppercase"
           >
             <h3>
               {{ currentDialog.title }}
@@ -42,13 +43,14 @@
           </div>
           <div
             v-if="
-              !currentDialog.noPromptConfirm ||
               !currentDialog.noPromptDismiss ||
-              !currentDialog.actions
+              !currentDialog.noPromptConfirm ||
+              currentDialog.actions?.length
             "
             class="dialog-actions flex-row justify-around"
           >
             <hd-button
+              v-if="!currentDialog.noPromptDismiss"
               @click="currentDialog.dismiss"
               color="grey-1"
               stripeColor="grey-5"
@@ -56,10 +58,19 @@
               striped
             />
             <hd-button
+              v-if="!currentDialog.noPromptConfirm"
               @click="currentDialog.confirm"
               striped
               label="confirm"
             />
+            <template v-if="currentDialog.actions?.length">
+              <hd-button
+                v-for="(action, index) of currentDialog.actions"
+                :key="index"
+                v-bind="action"
+                @click="() => (action.dismiss ? (currentDialog as Dialog).dismiss() : null)"
+              />
+            </template>
           </div>
         </div>
       </div>
@@ -68,8 +79,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { useDialogs } from '@/composable'
+  import { defineComponent, type ComputedRef } from 'vue'
+  import { useDialogs, type Dialog } from '@/composable'
   import { HdButton } from '@/components/atomics'
 
   export default defineComponent({
@@ -80,7 +91,7 @@
 
       return {
         dialogs,
-        currentDialog,
+        currentDialog: currentDialog as ComputedRef<Dialog>,
       }
     },
   })
@@ -108,7 +119,7 @@
       left: 0;
       height: 100%;
       width: 100%;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(10px);
     }
 
     .dialog-wrapper {
@@ -126,9 +137,9 @@
 
       background: linear-gradient(
         to right,
-        rgba($grey-6, 0.05),
-        rgba($grey-6, 0.2),
-        rgba($grey-6, 0.05)
+        rgba($grey-9, 0.1),
+        rgba($grey-9, 0.5),
+        rgba($grey-9, 0.1)
       );
 
       .dialog-content {

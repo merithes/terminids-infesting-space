@@ -1,4 +1,5 @@
-import { type Component, computed, reactive, watch } from 'vue'
+import type { ButtonComponentProps } from '@/components/atomics'
+import { type Component, computed, reactive } from 'vue'
 
 export interface DialogButton {
   label?: string
@@ -17,8 +18,9 @@ export interface PartialDialog {
   noPromptConfirm?: boolean
   confirmButton?: DialogButton | boolean
   dismissButton?: DialogButton | boolean
-  actions?: { label: string; onClick: (e: Event) => unknown }[]
+  actions?: (ButtonComponentProps & { dismiss?: boolean })[]
 }
+
 export interface Dialog extends PartialDialog {
   uuid: string
   dismiss: () => void
