@@ -10,11 +10,11 @@
     <slot name="before" />
     <g
       ref="containerGroup"
-      id="container"
+      class="container"
     >
       <g
         ref="wrapperGroup"
-        id="wrapper"
+        class="wrapper"
       >
         <path
           v-for="(location, index) in map.locations"

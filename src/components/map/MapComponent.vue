@@ -2,24 +2,45 @@
   <div
     class="map flex-row justify-center full-height"
     @wheel.prevent="handleZoom"
+    :style="{
+      '--svgScale': transform.scale,
+      '--svgX': `${transform.x}%`,
+      '--svgY': `${transform.y}%`,
+    }"
   >
     <radio-svg-map
+      class="sectors-map full-width"
       ref="svgMap"
       v-model="selectedSector"
       :map="hdMap"
       toggle
       :location-attributes="{ 'vector-effect': 'non-scaling-stroke' }"
-      @vue:mounted="handleMounted"
-      class="full-width"
       :class="{ 'sector-selected': selectedSector }"
-    />
+    >
+      <template #after>
+        <g class="container planets-map">
+          <g class="wrapper">
+            <circle
+              v-for="(planet, index) of planets"
+              :key="index"
+              @click.stop="console.log(planet)"
+              r=".5"
+              :cx="50 + planet.position.x * 49"
+              :cy="50 + planet.position.y * -49"
+              fill="red"
+            />
+          </g>
+        </g>
+      </template>
+    </radio-svg-map>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
+  import { computed, defineComponent, nextTick, onMounted, reactive, ref, watch } from 'vue'
   import hdMap from '@/assets/map'
   import { RadioSvgMap } from '@/components/map/svgMap'
+  import { usePlanetsStore } from '@/stores/planets'
 
   interface SvgTransformMatrix {
     scale?: number
@@ -35,9 +56,9 @@
       const selectedSector = ref(),
         svgMap = ref<InstanceType<typeof RadioSvgMap>>(),
         transform = reactive<SvgTransformMatrix>({
-          scale: undefined,
-          x: undefined,
-          y: undefined,
+          scale: 1,
+          x: -50,
+          y: -50,
         }),
         targetTransform = {
           sizeX: 90,
@@ -73,18 +94,6 @@
       watch(selectedSector, focusSector)
       onMounted(() => nextTick().then(() => focusSector(selectedSector.value)))
 
-      watch(
-        transform,
-        (newVal): void => {
-          const pathGroup = svgMap.value?.svgMap?.wrapperGroup
-
-          if (!pathGroup) return
-
-          pathGroup.style.transform = `scale(${newVal.scale}) translate(${newVal.x}%, ${newVal.y}%)`
-        },
-        { deep: true }
-      )
-
       const handleZoom = (event: WheelEvent) => {
         if (!event.target) return
 
@@ -105,21 +114,18 @@
         Object.assign(transform, newTransform)
       }
 
-      const handleMounted = () => {
-        nextTick().then(() => {
-          if (!svgMap.value?.svgMap?.containerGroup || !svgMap.value?.svgMap?.wrapperGroup) return
-          svgMap.value.svgMap.containerGroup.style.transform = 'translate(50%, 50%)'
-          svgMap.value.svgMap.wrapperGroup.style.transform = 'translate(-50%, -50%)'
-        })
-      }
+      const planets = usePlanetsStore()
+
+      if (planets.needsFetching) planets.fetch()
 
       return {
         hdMap,
         svgMap,
         selectedSector,
         transform,
-        handleMounted,
         handleZoom,
+        planets: computed(() => planets.list),
+        loading: computed(() => planets.loading),
       }
     },
   })
@@ -127,12 +133,13 @@
 
 <style lang="scss">
   .map {
+    position: relative;
     .sector-selected {
       path:not([aria-checked='true']) {
         stroke: #fff2;
       }
     }
-    svg {
+    .sectors-map {
       max-width: 100%;
       max-height: 100%;
       * {
@@ -140,6 +147,12 @@
       }
       g {
         transform-origin: top left;
+      }
+      .container {
+        transform: translate(50%, 50%);
+        .wrapper {
+          transform: scale(var(--svgScale)) translate(var(--svgX), var(--svgY));
+        }
       }
       path {
         stroke: $grey-5;
@@ -155,6 +168,31 @@
           stroke-width: 5px;
         }
       }
+    }
+    .planets-map {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      * {
+        transition: all 0.4s ease;
+      }
+      g {
+        transform-origin: top left;
+      }
+      .container {
+        transform: translate(50%, 50%);
+        .wrapper {
+          transform: scale(var(--svgScale)) translate(var(--svgX), var(--svgY));
+        }
+      }
+    }
+    .sector-selected .planets-map {
+      pointer-events: unset;
     }
   }
 </style>
