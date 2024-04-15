@@ -1,6 +1,6 @@
 <template>
   <div
-    class="map flex-row justify-center full-height"
+    class="map flex-row justify-center full-height gap-none"
     @wheel.prevent="handleZoom"
     :style="{
       '--svgScale': transform.scale,
@@ -9,7 +9,7 @@
     }"
   >
     <radio-svg-map
-      class="sectors-map full-width"
+      class="sectors-map flex-grow"
       ref="svgMap"
       v-model="selectedSector"
       :map="hdMap"
@@ -20,19 +20,69 @@
       <template #after>
         <g class="container planets-map">
           <g class="wrapper">
-            <circle
+            <g
               v-for="(planet, index) of planets"
               :key="index"
-              @click.stop="console.log(planet)"
-              r=".5"
-              :cx="50 + planet.position.x * 49"
-              :cy="50 + planet.position.y * -49"
-              fill="red"
-            />
+              @click.stop="() => togglePlanetSelected(planet)"
+              class="planet"
+              :class="[
+                {
+                  'focused-planet':
+                    selectedSector === planet.sector.toLowerCase().replace(/\W/g, ''),
+                },
+                `planet-${planet.name.toLowerCase().replace(/\W/g, '-')}`,
+              ]"
+              :transform="`translate(${50 + planet.position.x * 49} ${50 + planet.position.y * -49})`"
+              :data-sector="planet.sector"
+            >
+              <circle
+                class="planet-icon"
+                r=".2"
+              />
+              <text
+                paint-order="stroke"
+                class="planet-label"
+                style="font-size: 0.5px"
+                y=".2"
+                line-j
+                text-anchor="middle"
+                dominant-baseline="hanging"
+                >{{ planet.name }}</text
+              >
+            </g>
           </g>
         </g>
       </template>
     </radio-svg-map>
+    <transition
+      appear
+      mode="out-in"
+      name="planet-description"
+      :duration="400"
+    >
+      <div
+        v-if="selectedPlanet"
+        class="planet-description-wrapper"
+      >
+        <div class="planet-description">
+          <description-card
+            :label="selectedPlanet.name"
+            innerClass="flex-column"
+          >
+            <div class="flex-row align-stretch">
+              <border-decorator height="unset"> </border-decorator>
+              <div class="hd-py-xs hd-px-sm flex-column">
+                <div class="text-h6 text-smallcaps">
+                  <span class="text-grey-2">Biome: </span>{{ selectedPlanet.biome.name }}
+                </div>
+                <p class="test-body1">{{ selectedPlanet.biome.description }}</p>
+              </div>
+            </div>
+            {{ selectedPlanet }}
+          </description-card>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -41,6 +91,8 @@
   import hdMap from '@/assets/map'
   import { RadioSvgMap } from '@/components/map/svgMap'
   import { usePlanetsStore } from '@/stores/planets'
+  import type { Planet } from '@/interfaces'
+  import { BorderDecorator, DescriptionCard } from '../atomics'
 
   interface SvgTransformMatrix {
     scale?: number
@@ -51,7 +103,7 @@
   export default defineComponent({
     name: 'MapComponent',
 
-    components: { RadioSvgMap },
+    components: { RadioSvgMap, DescriptionCard, BorderDecorator },
     setup() {
       const selectedSector = ref(),
         svgMap = ref<InstanceType<typeof RadioSvgMap>>(),
@@ -65,7 +117,8 @@
           sizeY: 90,
           posX: 50,
           posY: 50,
-        }
+        },
+        selectedPlanet = ref<Planet>()
 
       const focusSector = (sector: string): void => {
         if (!sector) {
@@ -115,8 +168,15 @@
       }
 
       const planets = usePlanetsStore()
-
       if (planets.needsFetching) planets.fetch()
+
+      const togglePlanetSelected = (planet: Planet | false) => {
+        if (planet === false || planet.index === selectedPlanet.value?.index) {
+          selectedPlanet.value = undefined
+          return
+        }
+        selectedPlanet.value = planet
+      }
 
       return {
         hdMap,
@@ -126,6 +186,8 @@
         handleZoom,
         planets: computed(() => planets.list),
         loading: computed(() => planets.loading),
+        selectedPlanet,
+        togglePlanetSelected,
       }
     },
   })
@@ -134,11 +196,6 @@
 <style lang="scss">
   .map {
     position: relative;
-    .sector-selected {
-      path:not([aria-checked='true']) {
-        stroke: #fff2;
-      }
-    }
     .sectors-map {
       max-width: 100%;
       max-height: 100%;
@@ -147,6 +204,11 @@
       }
       g {
         transform-origin: top left;
+      }
+      &.sector-selected {
+        path:not([aria-checked='true']) {
+          stroke: #fff2;
+        }
       }
       .container {
         transform: translate(50%, 50%);
@@ -166,33 +228,84 @@
         &[aria-checked='true'] {
           stroke: $primary;
           stroke-width: 5px;
+          cursor: default;
         }
       }
-    }
-    .planets-map {
-      pointer-events: none;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      * {
-        transition: all 0.4s ease;
+      .planets-map {
+        // pointer-events: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z2 * {
+          transition: all 0.4s ease;
+        }
+        g {
+          transform-origin: top left;
+        }
+        &.container {
+          transform: translate(50%, 50%);
+          .wrapper {
+            transform: scale(var(--svgScale)) translate(var(--svgX), var(--svgY));
+            .planet {
+              pointer-events: none;
+              .planet-icon {
+                stroke: transparent;
+                stroke-width: 0;
+              }
+              .planet-label {
+                opacity: 0;
+                stroke: #000b;
+                stroke-width: 0.1px;
+                fill: white;
+                font-family: 'FS Sinclair';
+                transition: all 0.2s ease;
+                cursor: pointer;
+              }
+            }
+          }
+        }
       }
-      g {
-        transform-origin: top left;
-      }
-      .container {
-        transform: translate(50%, 50%);
+      &.sector-selected .planets-map.container {
+        pointer-events: unset;
         .wrapper {
-          transform: scale(var(--svgScale)) translate(var(--svgX), var(--svgY));
+          .planet {
+            fill: #0000;
+            transition: all 0.2s ease;
+          }
+          .focused-planet {
+            transition: ease 0.4s;
+            fill: #fff8;
+            pointer-events: unset;
+            .planet-label {
+              transition: all 0.4s ease 0.3s;
+              opacity: 1;
+            }
+          }
         }
       }
     }
-    .sector-selected .planets-map {
-      pointer-events: unset;
+    .planet-description-wrapper {
+      overflow-x: hidden;
+      width: 500px;
+      &.planet-description-enter-active,
+      &.planet-description-leave-active {
+        transition: all 0.25s ease;
+      }
+
+      &.planet-description-leave-to,
+      &.planet-description-enter-from {
+        width: 0;
+        opacity: 0;
+      }
+
+      .planet-description {
+        width: 500px;
+        padding: map-get($sizes, md);
+      }
     }
   }
 </style>
