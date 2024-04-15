@@ -1,0 +1,44 @@
+$space-base: 1rem;
+$rel-space-base: 1em;
+
+$sizes: (
+  none: 0,
+  xxs: $space-base * 0.25,
+  xs: $space-base * 0.5,
+  sm: $space-base * 0.75,
+  md: $space-base,
+  lg: $space-base * 1.25,
+  xl: $space-base * 1.5,
+  xxl: $space-base * 3,
+
+  rxxs: $rel-space-base * 0.25,
+  rxs: $rel-space-base * 0.5,
+  rsm: $rel-space-base * 0.75,
+  rmd: $rel-space-base,
+  rlg: $rel-space-base * 1.25,
+  rxl: $rel-space-base * 1.5,
+  rxxl: $rel-space-base * 3,
+);
+
+$directions: (
+  l: 'left',
+  r: 'right',
+  t: 'top',
+  b: 'bottom',
+  x: (
+    'right',
+    'left',
+  ),
+  y: (
+    'top',
+    'bottom',
+  ),
+  a: (
+    'top',
+    'bottom',
+    'right',
+    'left',
+  ),
+);
+
+$grid-col-count: 12;

@@ -1,0 +1,38 @@
+@import './variables.scss';
+@import './normalize.scss';
+@import './layout.scss';
+@import './colors.scss';
+@import './fonts.scss';
+@import './typography.scss';
+
+:root {
+  font-size: 18px;
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    font-weight: normal;
+    background-color: $defaultBgColor;
+
+    #app {
+      color: $defaultTextColor;
+      height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+    }
+  }
+  ::selection {
+    background-color: rgba($primary, 0.7);
+  }
+}
+
+* {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  box-sizing: border-box;
+  line-height: 1;
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}

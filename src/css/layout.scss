@@ -1,0 +1,166 @@
+@import './variables/sizes.scss';
+
+@each $direction, $prop in $directions {
+  @each $sizeName, $size in $sizes {
+    .hd-p#{$direction}-#{$sizeName} {
+      @if type-of($prop) == list {
+        @each $property in $prop {
+          padding-#{$property}: $size;
+        }
+      } @else {
+        padding-#{$prop}: $size;
+      }
+    }
+    .hd-m#{$direction}-#{$sizeName} {
+      @if type-of($prop) == list {
+        @each $property in $prop {
+          margin-#{$property}: $size;
+        }
+      } @else {
+        margin-#{$prop}: $size;
+      }
+    }
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  --column-gap: #{map-get($sizes, md)};
+  --row-gap: #{map-get($sizes, md)};
+
+  grid-column-gap: MIN(calc(100% / 11), var(--column-gap));
+  grid-row-gap: var(--row-gap);
+
+  @for $col-size from 1 through 12 {
+    .col-#{$col-size} {
+      grid-column: span $col-size;
+    }
+  }
+
+  @each $sizeName, $sizeValue in $sizes {
+    .row-gap-#{$sizeName} {
+      --row-gap: #{$sizeValue};
+    }
+    .col-gap-#{$sizeName} {
+      --column-gap: #{$sizeValue};
+    }
+  }
+}
+
+.flex-column,
+.flex-row {
+  column-gap: #{map-get($sizes, md)};
+  row-gap: #{map-get($sizes, md)};
+  justify-content: start;
+  display: flex;
+
+  @each $sizeName, $sizeValue in $sizes {
+    .gap-#{$sizeName} {
+      gap: #{$sizeValue};
+    }
+    .row-gap-#{$sizeName} {
+      row-gap: #{$sizeValue};
+    }
+    .col-gap-#{$sizeName} {
+      column-gap: #{$sizeValue};
+    }
+  }
+}
+
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-nogrow {
+  flex-grow: 0;
+}
+
+.justify-start {
+  justify-content: start;
+}
+.justify-end {
+  justify-content: end;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-left {
+  justify-content: left;
+}
+.justify-right {
+  justify-content: right;
+}
+.justify-normal {
+  justify-content: normal;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.justify-evenly {
+  justify-content: space-evenly;
+}
+.justify-stretch {
+  justify-content: stretch;
+}
+.justify-safe {
+  justify-content: safe;
+}
+.justify-unsafe {
+  justify-content: unsafe;
+}
+
+.items-start {
+  align-items: start;
+}
+.items-end {
+  align-items: end;
+}
+.items-center {
+  align-items: center;
+}
+.items-left {
+  align-items: left;
+}
+.items-right {
+  align-items: right;
+}
+.items-normal {
+  align-items: normal;
+}
+.items-between {
+  align-items: space-between;
+}
+.items-around {
+  align-items: space-around;
+}
+.items-evenly {
+  align-items: space-evenly;
+}
+.items-stretch {
+  align-items: stretch;
+}
+.items-safe {
+  align-items: safe;
+}
+.items-unsafe {
+  align-items: unsafe;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}

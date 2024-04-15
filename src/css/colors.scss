@@ -1,0 +1,43 @@
+@import './variables/colors.scss';
+
+.text-default {
+  color: $defaultTextColor;
+}
+.bg-default {
+  color: $defaultBgColor;
+}
+
+$opacityVariations: (
+  transparent: 0.15,
+  semitransparent: 0.5,
+);
+
+$root-variables: ();
+
+@each $colorName, $colorValue in $colorsList {
+  $root-variables: map-merge($root-variables, (#{$colorName + ''}: #{$colorValue}));
+  .bg-#{$colorName + ''} {
+    background-color: $colorValue;
+  }
+  .text-#{$colorName + ''} {
+    color: $colorValue;
+  }
+
+  @each $oName, $oValue in $opacityVariations {
+    $oColorValue: rgba($colorValue, $oValue);
+
+    $root-variables: map-merge($root-variables, (#{$colorName + '-' + $oName}: $oColorValue));
+    .bg-#{$colorName + ''}-#{$oName + ''} {
+      background-color: $oColorValue;
+    }
+    .text-#{$colorName + ''}-#{$oName + ''} {
+      color: $oColorValue;
+    }
+  }
+}
+
+:root {
+  @each $colorName, $colorValue in $root-variables {
+    --#{$colorName + ''}: #{$colorValue};
+  }
+}
