@@ -1,9 +1,10 @@
 <template>
   <button
     class="hd-button"
-    :class="`text-${textColor} hd-button-${buttonStyle}`"
+    :class="`text-${finalTextColor} hd-button-${buttonStyle}`"
     :style="{
       '--outline': `var(--${outlineColor})`,
+      '--stripes': `var(--${stripeColor ?? outlineColor})`,
       '--background': background ? `var(--${background}-transparent)` : '',
       width,
       minWidth,
@@ -26,6 +27,8 @@
     props: {
       label: String,
       color: String,
+      textColor: String,
+      stripeColor: String,
       outline: String,
       striped: Boolean,
       default: Boolean,
@@ -43,7 +46,8 @@
         if (this.default) return 'default'
         return 'default'
       },
-      textColor() {
+      finalTextColor() {
+        if (this.textColor) return this.textColor
         if (this.color) return this.color
         if (this.buttonStyle === 'striped') return 'primary'
         return 'white'
