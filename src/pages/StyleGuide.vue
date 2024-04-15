@@ -168,6 +168,11 @@
               and some more
             </div>
           </border-decorator>
+          <striped-block width="100px" />
+          <striped-block
+            width="200px"
+            color="grey-5"
+          />
         </div>
         <h2 class="hd-mt-xxl">Card</h2>
         <separator width="100px" />
@@ -193,13 +198,22 @@
     Skeleton,
     TabList,
     DescriptionCard,
+    StripedBlock,
   } from '@/components/atomics'
   import { useDialogs } from '@/composable'
   import { defineComponent, ref } from 'vue'
 
   export default defineComponent({
     name: 'StyleGuide',
-    components: { HdButton, Separator, Skeleton, TabList, BorderDecorator, DescriptionCard },
+    components: {
+      HdButton,
+      Separator,
+      Skeleton,
+      TabList,
+      BorderDecorator,
+      DescriptionCard,
+      StripedBlock,
+    },
     setup() {
       const { createDialog } = useDialogs()
       return {
