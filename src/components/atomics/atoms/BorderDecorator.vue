@@ -58,7 +58,7 @@
       top: -2px;
       left: -2px;
       bottom: -2px;
-      width: calc(map-get($sizes, sm) + 8px);
+      width: calc(map-get($sizes, lg) + 2px);
       border: 2px solid var(--decorator-border-color);
       border-top: unset;
       border-right: unset;
@@ -70,6 +70,8 @@
 
     &.flipped {
       border-left: none;
+      padding-left: unset;
+      padding-right: map-get($sizes, lg);
     }
 
     &.flipped {

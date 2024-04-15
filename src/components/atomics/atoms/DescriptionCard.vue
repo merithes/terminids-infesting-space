@@ -6,7 +6,10 @@
     <div class="description-card-label">
       <slot name="label">{{ label }}</slot>
     </div>
-    <div class="description-card-inner">
+    <div
+      class="description-card-inner"
+      :class="innerClass"
+    >
       <slot></slot>
     </div>
   </div>
@@ -23,6 +26,7 @@
         default: 'grey-8',
       },
       label: String,
+      innerClass: [Object, String, Array] as unknown as () => unknown,
     },
   })
 </script>

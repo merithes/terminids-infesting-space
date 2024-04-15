@@ -56,6 +56,9 @@
   display: flex;
 
   @each $sizeName, $sizeValue in $sizes {
+    .gap-#{$sizeName} {
+      gap: #{$sizeValue};
+    }
     .row-gap-#{$sizeName} {
       row-gap: #{$sizeValue};
     }

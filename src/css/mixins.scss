@@ -5,9 +5,9 @@
     linear-gradient(
       $angle,
       $mainColor #{$halfThickness},
-      $secondaryColor calc(#{$halfThickness} + 1.5px) calc(50% - #{$halfThickness} - 1.5px),
+      $secondaryColor calc(#{$halfThickness} + 0.5px) calc(50% - #{$halfThickness} - 0.5px),
       $mainColor calc(50% - #{$halfThickness}) calc(50% + #{$halfThickness}),
-      $secondaryColor calc(50% + #{$halfThickness} + 1.5px) calc(100% - #{$halfThickness} - 1.5px),
+      $secondaryColor calc(50% + #{$halfThickness} + 0.5px) calc(100% - #{$halfThickness} - 0.5px),
       $mainColor calc(100% - #{$halfThickness})
     );
 }
