@@ -20,8 +20,8 @@ export interface Planet {
   maxHealth: number
   health: number
   disabled: boolean
-  initialOwner: 'Humans' | 'Automatons' | 'Terminids'
-  currentOwner: 'Humans' | 'Automatons' | 'Terminids'
+  initialOwner: 'Humans' | 'Automaton' | 'Terminids'
+  currentOwner: 'Humans' | 'Automaton' | 'Terminids'
   regenPerSecond: number
   event: PlanetEvent[]
   statistics: {

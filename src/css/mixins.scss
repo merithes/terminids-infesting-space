@@ -1,13 +1,22 @@
-@mixin borderDash($thickness, $size, $mainColor, $secondaryColor, $angle: 45deg) {
+@mixin borderDash(
+  $thickness,
+  $size,
+  $mainColor,
+  $secondaryColor: transparent,
+  $angle: 45deg,
+  $spread-width: 0.8px
+) {
   $halfThickness: calc($thickness / 2);
 
   background: top left / $size $size
     linear-gradient(
       $angle,
       $mainColor #{$halfThickness},
-      $secondaryColor calc(#{$halfThickness} + 0.5px) calc(50% - #{$halfThickness} - 0.5px),
+      $secondaryColor calc(#{$halfThickness} + $spread-width)
+        calc(50% - #{$halfThickness} - $spread-width),
       $mainColor calc(50% - #{$halfThickness}) calc(50% + #{$halfThickness}),
-      $secondaryColor calc(50% + #{$halfThickness} + 0.5px) calc(100% - #{$halfThickness} - 0.5px),
+      $secondaryColor calc(50% + #{$halfThickness} + $spread-width)
+        calc(100% - #{$halfThickness} - $spread-width),
       $mainColor calc(100% - #{$halfThickness})
     );
 }

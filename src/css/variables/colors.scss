@@ -6,6 +6,10 @@ $primary: #fff100;
 $positive: #4ee076;
 $negative: #b94545;
 
+$humans: #bde;
+$automatons: #f55;
+$terminids: #fc0;
+
 /**
 *** SET GENERIC COLORS
 **/
@@ -23,12 +27,18 @@ $grey-7: #777;
 $grey-8: #666;
 $grey-9: #555;
 $grey-10: #444;
+$grey-11: #333;
 
 $colorsList: (
   primary: $primary,
   white: $white,
   positive: $positive,
   negative: $negative,
+
+  humans: $humans,
+  automatons: $automatons,
+  terminids: $terminids,
+
   dark: $dark,
   grey: $grey,
   grey-1: $grey-1,
@@ -41,6 +51,7 @@ $colorsList: (
   grey-8: $grey-8,
   grey-9: $grey-9,
   grey-10: $grey-10,
+  grey-11: $grey-11,
 );
 
 /**
