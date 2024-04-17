@@ -1,6 +1,6 @@
 <template>
   <div
-    class="progress-outer"
+    class="progress-bar"
     :style="{
       '--from-color': `var(--${from})`,
       '--to-color': `var(--${to})`,
@@ -36,29 +36,22 @@
         type: Number,
         required: true,
       },
-      maxDecimals: {
-        type: Number,
-        default: 2,
-      },
     },
   })
 </script>
 
 <style lang="scss">
-  .progress-outer {
+  .progress-bar {
     border: 2px solid var(--from-color);
     padding: 3px;
-    &::before {
-      content: '';
-      display: block;
-      height: 100%;
-      width: 100%;
-      background-image: linear-gradient(
+
+    background: 3px 3px / calc(100% - 6px) calc(100% - 6px)
+      linear-gradient(
         to right,
         var(--to-color) var(--progress),
         #0000 var(--progress) calc(var(--progress) + 1px),
         var(--from-color) calc(var(--progress) + 1px)
-      );
-    }
+      )
+      no-repeat;
   }
 </style>
