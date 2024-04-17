@@ -11,13 +11,14 @@ interface ListManager {
 
 export const usePlanetsStore = defineStore('counter', () => {
   const listManagerStorage = JSON.parse(
-      localStorage.getItem('planets.listManager') ?? 'null'
+      // localStorage.getItem('planets.listManager') ??
+      'null'
     ) as ListManager | null,
     listManager = reactive<ListManager>({
       lastFetchTs: listManagerStorage?.lastFetchTs ?? 0,
       currentFetch: undefined,
       loading: false,
-      list: listManagerStorage?.list ?? [],
+      list: listManagerStorage?.list ?? ([] as Planet[]),
     }),
     cacheDuration = 5 * 60 * 1000
 
@@ -30,16 +31,22 @@ export const usePlanetsStore = defineStore('counter', () => {
           return response.json()
         })
         .then((planets: Planet[]) => {
-          Object.assign(listManager, {
-            list: planets,
-            lastFetchTs: Date.now(),
-          })
+          listManager.lastFetchTs = Date.now()
+
+          if (!listManager.list.length) listManager.list = planets
+          else
+            for (const [index, planet] of Object.entries(planets)) {
+              if (typeof index !== 'number') continue
+              if (JSON.stringify(planet) === JSON.stringify(listManager.list[index])) continue
+              listManager.list.splice(index, 1, planet)
+            }
         })
         .finally(() => {
           Object.assign(listManager, {
             currentFetch: undefined,
             loading: false,
           })
+          listManager.currentFetch = undefined
         })
     }
 
@@ -49,6 +56,9 @@ export const usePlanetsStore = defineStore('counter', () => {
 
     return listManager.currentFetch
   }
+
+  let fetchInterval = 0
+  fetchInterval = fetchInterval ? fetchInterval : setInterval(fetchList, 5000)
 
   return {
     list: computed(() => listManager.list),
