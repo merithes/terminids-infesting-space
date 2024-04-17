@@ -185,6 +185,16 @@
             </div>
           </description-card>
         </div>
+        <h2 class="hd-mt-xxl">Progression</h2>
+        <separator width="100px" />
+        <div class="flex-row gap items-start">
+          <progress-bar
+            :value="70"
+            to="humans"
+            from="terminids"
+            width="300px"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -199,6 +209,7 @@
     TabList,
     DescriptionCard,
     StripedBlock,
+    ProgressBar,
   } from '@/components/atomics'
   import { useDialogs } from '@/composable'
   import { defineComponent, ref } from 'vue'
@@ -213,6 +224,7 @@
       BorderDecorator,
       DescriptionCard,
       StripedBlock,
+      ProgressBar,
     },
     setup() {
       const { createDialog } = useDialogs()

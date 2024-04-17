@@ -30,6 +30,6 @@
 </script>
 <style scoped lang="scss">
   .striped-block {
-    @include borderDash(0.8px, 9px, currentColor, transparent);
+    @include borderDash(0.8px, 8px, currentColor);
   }
 </style>

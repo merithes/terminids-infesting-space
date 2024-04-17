@@ -4,6 +4,7 @@
     :viewBox="map.viewBox"
     :aria-label="map.label"
     class="svg-map"
+    :class="svgClass"
     ref="svg"
     vector-effect="non-scaling-stroke"
   >
@@ -70,6 +71,7 @@
         type: Object as () => Map,
         required: true,
       },
+      svgClass: {},
       locationClass: {
         type: [String, Function] as unknown as () => string | ((a: Location, b: number) => string),
       },

@@ -14,6 +14,8 @@
     @keydown.left.prevent.stop="selectPreviousLocation"
     :active-location-attributes="activeLocationAttributes"
     :location-attributes="locationAttributes"
+    :svgClass="svgClass"
+    :location-class="locationClass"
   >
     <template
       v-for="(_, slotName) of $slots"
@@ -42,6 +44,7 @@
         type: Object as () => Map,
         required: true,
       },
+      svgClass: {},
       modelValue: String as () => string | undefined,
       locationClass: {
         type: [String, Function] as unknown as () => string | ((a: Location, b: number) => string),
