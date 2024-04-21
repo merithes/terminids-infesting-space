@@ -3,55 +3,19 @@
     id="mapPage"
     class="flex-row full-height gap-none"
   >
-    <hd-map
-      v-model="planet"
-      :planets="planetsList"
-    />
-
-    <transition
-      appear
-      mode="out-in"
-      name="planet-toggle"
-      :duration="400"
-    >
-      <div
-        v-if="typeof planet === 'number'"
-        class="planet-display-section position-relative"
-      >
-        <transition
-          appear
-          name="planet-change"
-          mode="out-in"
-          :duration="400"
-        >
-          <planet-view
-            :value="planetsList[planet]"
-            :key="planet"
-          />
-        </transition>
-      </div>
-    </transition>
+    <three-test />
   </div>
 </template>
 
 <script lang="ts">
-  import { HdMap, PlanetView } from '@/components'
-  import { usePlanetsStore } from '@/stores/planets'
-  import { computed, defineComponent, ref } from 'vue'
+  import { ThreeTest } from '@/components'
+  import { defineComponent } from 'vue'
 
   export default defineComponent({
     name: 'MapPage',
-    components: { HdMap, PlanetView },
+    components: { ThreeTest },
     setup() {
-      const planet = ref<number>(),
-        planetsStore = usePlanetsStore()
-
-      if (planetsStore.needsFetching) planetsStore.fetch()
-
-      return {
-        planet,
-        planetsList: computed(() => planetsStore.list),
-      }
+      return {}
     },
   })
 </script>

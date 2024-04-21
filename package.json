@@ -13,8 +13,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^23.1.1",
     "lodash.isequal": "^4.5.0",
     "pinia": "^2.1.7",
+    "three": "^0.163.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
@@ -23,6 +25,7 @@
     "@tsconfig/node20": "^20.1.2",
     "@types/lodash.isequal": "^4.5.8",
     "@types/node": "^20.11.28",
+    "@types/three": "^0.163.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
